@@ -40,6 +40,10 @@ $user = new User($registry);
 
 $registry->add('user', $user);
 
+$audit = new Audit($registry);
+
+$registry->add('audit', $audit);
+
 $url = new Url($registry);
 
 $registry->add('url', $url);
@@ -47,6 +51,10 @@ $registry->add('url', $url);
 $image = new Image($registry);
 
 $registry->add('image', $image);
+
+$mail = new Mail($registry);
+
+$registry->add('mail', $mail);
 
 $controller = new BaseController($registry);
 

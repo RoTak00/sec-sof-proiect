@@ -38,13 +38,17 @@ class AccountLoginController extends BaseController
             return;
         }
 
+
         $this->loadModel('account/user');
 
         if (!$this->user->login($this->request->post['email'], $this->request->post['password'])) {
             $this->notification->set('error', 'Invalid email or password');
+            $this->audit->add('USER_LOGIN', $this->request->post['email'], 0);
             $this->response->redirect('account/login');
             return;
         }
+
+        $this->audit->add('USER_LOGIN', $this->request->post['email'], $this->user->loggedIn());
 
         $this->notification->set('success', 'Logged in!');
 

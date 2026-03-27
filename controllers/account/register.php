@@ -41,12 +41,17 @@ class AccountRegisterController extends BaseController
         $existing_user = $this->model_account_user->getUserByEmail($this->request->post['email']);
 
         if ($existing_user) {
+
+            $this->audit->add('USER_REGISTER', $this->request->post['email'], 0);
             $this->notification->set('error', 'User already exists');
             $this->response->redirect('account/register');
             return;
         }
 
+
         $this->user->register($this->request->post['email'], $this->request->post['password']);
+        $this->audit->add('USER_REGISTER', $this->request->post['email'], $this->user->loggedIn());
+        $this->mail->send($this->request->post['email'], 'Welcome to AuthX', 'Welcome to AuthX!');
         $this->notification->set('success', 'Account created! Logged in!');
 
         $this->response->redirect('common/home');

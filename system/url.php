@@ -19,10 +19,10 @@ class Url
         return null; // Or throw an error if you want strict behavior
     }
 
-    public function link($controller)
+    public function link($controller, $add_host = false)
     {
-
-        return BASE_LOCATION . $controller;
+        global $HOST, $PORT;
+        return ($add_host ? ($HOST . ':' . $PORT) : '') . BASE_LOCATION . $controller;
     }
 
 }

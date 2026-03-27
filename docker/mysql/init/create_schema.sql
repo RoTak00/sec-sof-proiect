@@ -24,7 +24,7 @@ CREATE TABLE `tickets` (
 
 CREATE TABLE audit_logs (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NULL,
   `action` varchar(255) NOT NULL,
   `resource` varchar(255) NOT NULL,
   `resource_id` int(11) NOT NULL,
