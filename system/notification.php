@@ -35,6 +35,7 @@ class Notification
                 'message' => $message
             ];
         }
+        $this->session->data['notification'] = json_encode($this->list);
 
     }
 
@@ -46,17 +47,19 @@ class Notification
     public function clear()
     {
         $this->list = [];
+        $this->session->data['notification'] = json_encode($this->list);
     }
 
     public function remove($key)
     {
 
         unset($this->list[$key]);
+
+        $this->session->data['notification'] = json_encode($this->list);
     }
 
     public function __destruct()
     {
 
-        $this->session->data['notification'] = json_encode($this->list);
     }
 }

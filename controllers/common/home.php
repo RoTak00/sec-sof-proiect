@@ -6,6 +6,11 @@ class CommonHomeController extends BaseController
 
     public function index()
     {
+        if (!$this->user->loggedIn()) {
+            $this->response->redirect('account/login');
+            return;
+        }
+
         global $WEBSITE_NAME;
         $data = [];
 

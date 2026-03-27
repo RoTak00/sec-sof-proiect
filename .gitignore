@@ -7,7 +7,7 @@ assets/documents
 **.css.map
 .sass-cache
 .sass-cache/*
-**/*.scss
+**/*.css
 **/*.log
 **/cache/
 resources/images/content/** 

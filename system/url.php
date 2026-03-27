@@ -21,9 +21,8 @@ class Url
 
     public function link($controller)
     {
-        global $HOST;
 
-        return $HOST . BASE_LOCATION . $controller;
+        return BASE_LOCATION . $controller;
     }
 
 }

@@ -10,7 +10,7 @@ class CommonHeadController extends BaseController
         $this->response->addScript("/resources/inc/bootstrap.bundle.min.js", [], 1);
         $this->response->addScript("/resources/inc/jquery.js", [], 1);
 
-        $this->response->addStyle("/resources/css/common/styles.css");
+        $this->response->addStyle("/resources/css/auth/auth.css");
 
         $data = [];
 
@@ -20,7 +20,9 @@ class CommonHeadController extends BaseController
 
         $data['title'] = $setting['page_title'] ?? $WEBSITE_NAME ?? '';
 
-        $data['notification'] = $this->loadController('common/notification');
+        if ($data['title'] != $WEBSITE_NAME) {
+            $data['title'] = $data['title'] . ' | ' . $WEBSITE_NAME;
+        }
 
 
         return $this->loadView('common/head.php', $data);

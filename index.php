@@ -36,6 +36,10 @@ $notification = new Notification($registry);
 
 $registry->add('notification', $notification);
 
+$user = new User($registry);
+
+$registry->add('user', $user);
+
 $url = new Url($registry);
 
 $registry->add('url', $url);

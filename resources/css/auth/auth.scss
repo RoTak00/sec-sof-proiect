@@ -1,0 +1,103 @@
+$auth-bg: #f5f7fa;
+$auth-card-bg: #fff;
+$auth-primary: #4a90e2;
+$auth-primary-hover: #357ab8;
+$auth-text-muted: #555;
+$auth-error: #d9534f;
+$auth-border: #ddd;
+$auth-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+$auth-radius: 12px;
+$auth-input-radius: 8px;
+
+.auth-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $auth-bg;
+  font-family: Arial, sans-serif;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 320px;
+  padding: 40px;
+  background: $auth-card-bg;
+  border-radius: $auth-radius;
+  box-shadow: $auth-shadow;
+  text-align: center;
+
+  &--wide {
+    max-width: 400px;
+  }
+
+  &__title {
+    margin: 0 0 20px;
+  }
+
+  &__text {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: $auth-text-muted;
+  }
+
+  &__notification {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: $auth-error;
+  }
+
+  &__links {
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  &__link {
+    display: block;
+    margin-top: 5px;
+    color: $auth-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-radius: $auth-input-radius;
+    background: $auth-primary;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    box-sizing: border-box;
+
+    &:hover {
+      background: $auth-primary-hover;
+    }
+  }
+}
+
+.auth-form {
+  margin: 0;
+
+  &__input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid $auth-border;
+    border-radius: $auth-input-radius;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  &__button {
+    @extend .auth-card__button;
+  }
+}
