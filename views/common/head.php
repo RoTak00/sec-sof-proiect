@@ -11,8 +11,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/resources/images/favicon_io/site.webmanifest">
 
-    <?= $meta ?>
-
     <?= $styles ?>
     <?= $scripts ?>
 

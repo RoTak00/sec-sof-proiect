@@ -20,10 +20,6 @@ $db = new DB($SERVERNAME, $USERNAME, $PASSWORD, $DATABASE);
 
 $registry->add('db', $db);
 
-$setting = new Setting($registry);
-
-$registry->add('setting', $setting);
-
 $session = new Session($registry);
 
 $registry->add('session', $session);

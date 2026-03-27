@@ -45,6 +45,8 @@ class BaseController
 
     public function loadController($path, $data = [])
     {
+        global $DEGUB_MODE;
+
         $path = !empty($path) ? trim($path, '/') : 'common/home';
 
         $components = explode('/', $path);
@@ -95,7 +97,7 @@ class BaseController
             }
         } catch (Exception $e) {
 
-            if ((int) $this->setting->get('debug_mode') != 1) {
+            if ((int) ($DEBUG_MODE ?? 0) == 1) {
                 require_once CONTENT_DIR . 'controllers/common/error.php';
                 $error_controller = new CommonErrorController($this->registry);
                 $output = $error_controller->index();

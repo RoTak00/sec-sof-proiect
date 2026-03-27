@@ -11,8 +11,7 @@ class CommonHomeController extends BaseController
 
         $data['footer'] = $this->loadController('common/footer');
 
-
-        $head_settings = ['page_title' => $WEBSITE_NAME];
+        $head_settings = ['page_title' => $WEBSITE_NAME ?? ''];
         $data['head'] = $this->loadController('common/head', $head_settings);
         return $this->loadView('common/home.php', $data);
     }

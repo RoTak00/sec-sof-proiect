@@ -1,6 +1,6 @@
 <?php
 
-$SITE_NAME = "Website";
+$SITE_NAME = "AuthX";
 
 $SERVERNAME = "db";
 $USERNAME = "app";
@@ -16,7 +16,7 @@ $PHP_ERROR_REPORTING = 1;
 
 $DEFAULT_TIMEZONE = "UTC";
 
-$WEBSITE_NAME = 'My website';
-$WEBSITE_DESC = 'Welcome to my very cool website';
+$WEBSITE_NAME = 'AuthX';
 
+$DEBUG_MODE = 0;
 ?>

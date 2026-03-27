@@ -14,7 +14,7 @@ class Image
         $files = glob($cachePath . '*.webp');
         if ($files) {
             foreach ($files as $file) {
-                if (filemtime($file) < time() - (int) $this->setting->get('image_cache_duration') ?? 3600) {
+                if (filemtime($file) < time() - 3600) {
                     unlink($file);
                 }
             }

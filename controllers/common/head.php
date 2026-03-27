@@ -5,7 +5,7 @@ class CommonHeadController extends BaseController
 
     public function index($setting = [])
     {
-        global $HOST, $WEBSITE_NAME;
+        global $WEBSITE_NAME;
         $this->response->addStyle("/resources/inc/bootstrap.min.css", [], 1);
         $this->response->addScript("/resources/inc/bootstrap.bundle.min.js", [], 1);
         $this->response->addScript("/resources/inc/jquery.js", [], 1);
@@ -17,13 +17,8 @@ class CommonHeadController extends BaseController
         $data['styles'] = $this->response->getStyles();
         $data['scripts'] = $this->response->getScripts();
 
-        $this->response->addMeta('og:site_name', $this->setting->get('og_site_name') ?? $WEBSITE_NAME);
-        $this->response->addMeta('og:url', $HOST . '/' . $this->request->get['path']);
 
-        $data['meta'] = $this->response->getMeta();
-
-
-        $data['title'] = $setting['page_title'] ?? $this->setting->get('default_page_name') ?? $WEBSITE_NAME;
+        $data['title'] = $setting['page_title'] ?? $WEBSITE_NAME ?? '';
 
         $data['notification'] = $this->loadController('common/notification');
 

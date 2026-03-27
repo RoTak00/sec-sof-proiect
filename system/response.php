@@ -6,8 +6,6 @@ class Response
     public $styles = [];
     public $scripts = [];
 
-    public $meta = [];
-
     public function __construct($registry)
     {
         $this->registry = $registry;
@@ -112,31 +110,5 @@ class Response
     {
         $this->meta[$key] = $value;
     }
-    public function getMeta()
-    {
-        global $WEBSITE_NAME, $WEBSITE_DESC;
-        if (empty($this->meta['og:site_name'])) {
-            $this->meta['og:site_name'] = $this->setting->get('og_site_name') ?? $WEBSITE_NAME;
-        }
-        if (empty($this->meta['og:title'])) {
-            $this->meta['og:title'] = $this->setting->get('og_title') ?? $WEBSITE_NAME;
-        }
-        if (empty($this->meta['og:description'])) {
-            $this->meta['og:description'] = $this->setting->get('og_description') ?? $WEBSITE_DESC;
-        }
-        if (empty($this->meta['og:type'])) {
-            $this->meta['og:type'] = $this->setting->get('og_type') ?? 'website';
-        }
-
-        ob_start();
-
-        foreach ($this->meta as $key => $value) {
-            echo '<meta property="' . $key . '" content="' . $value . '">';
-        }
-
-        return ob_get_clean();
-
-    }
-
 
 }
