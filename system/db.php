@@ -1,5 +1,14 @@
 <?php
 
+class DBResult
+{
+    public $rows = [];
+    public $row = null;
+    public $num_rows = 0;
+    public $insert_id = 0;
+    public $rows_affected = 0;
+    public $success = false;
+}
 class DB
 {
     private $conn;
@@ -29,9 +38,41 @@ class DB
     }
 
 
-    public function query($query)
+    public function query($query, $types = null, $params = [])
     {
-        return $this->conn->query($query);
+        $db_result = new DBResult();
+
+        if ($types) {
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param($types, ...$params);
+            $db_result->success = $stmt->execute();
+            $db_result->insert_id = $this->conn->insert_id;
+            $db_result->rows_affected = $stmt->affected_rows;
+
+            $result = $stmt->get_result();
+            if ($result instanceof mysqli_result) {
+                $db_result->rows = $result->fetch_all(MYSQLI_ASSOC);
+                $db_result->row = $db_result->rows[0] ?? null;
+                $db_result->num_rows = $result->num_rows;
+            }
+
+            $stmt->close();
+            return $db_result;
+        }
+
+        $result = $this->conn->query($query);
+        $db_result->success = ($result !== false);
+        $db_result->insert_id = $this->conn->insert_id;
+        $db_result->rows_affected = $this->conn->affected_rows;
+
+        if ($result instanceof mysqli_result) {
+            $db_result->rows = $result->fetch_all(MYSQLI_ASSOC);
+            $db_result->row = $db_result->rows[0] ?? null;
+            $db_result->num_rows = $result->num_rows;
+            $result->close();
+        }
+
+        return $db_result;
     }
 
     public function error()

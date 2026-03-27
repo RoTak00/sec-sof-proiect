@@ -8,7 +8,7 @@
             <div class="auth-card__notification"><?= $notification ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="" class="auth-form">
+        <form method="POST" action="<?= $action ?>" class="auth-form">
             <input class="auth-form__input" type="email" name="email" placeholder="Email" required>
             <input class="auth-form__input" type="password" name="password" placeholder="Password" required>
 

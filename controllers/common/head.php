@@ -11,6 +11,7 @@ class CommonHeadController extends BaseController
         $this->response->addScript("/resources/inc/jquery.js", [], 1);
 
         $this->response->addStyle("/resources/css/auth/auth.css");
+        $this->response->addStyle("/resources/css/common/styles.css");
 
         $data = [];
 

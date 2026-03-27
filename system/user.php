@@ -5,7 +5,7 @@ class User
     private $registry = [];
 
     private $user_id;
-    private $email;
+    public $email;
     private $db = null;
 
     public function loggedIn()
@@ -26,6 +26,39 @@ class User
         }
     }
 
+    public function register($email, $password)
+    {
+        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+        $result = $this->db->query($sql, 'ss', [$email, $password]);
+
+        $this->session->data['user_id'] = $result->insert_id;
+        $this->user_id = $this->session->data['user_id'];
+        $this->email = $email;
+
+        return true;
+    }
+
+    public function login($email, $password)
+    {
+        $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        $result = $this->db->query($sql, 'ss', [$email, $password]);
+        if ($result->num_rows > 0) {
+            $user = $result->row;
+            $this->session->data['user_id'] = $user['user_id'];
+            $this->user_id = $user['user_id'];
+            $this->email = $user['email'];
+            return true;
+        }
+        return false;
+    }
+
+    public function logout()
+    {
+        $this->session->data['user_id'] = null;
+        $this->user_id = null;
+        $this->email = null;
+    }
+
 
     public function __get($name)
     {
@@ -44,7 +77,7 @@ class User
     private function getUser($id)
     {
         $sql = "SELECT * FROM users WHERE user_id = ?";
-        $query = $this->db->query($sql, [$id]);
-        return $query->row_array();
+        $result = $this->db->query($sql, 'i', [$id]);
+        return $result->row;
     }
 }

@@ -20,7 +20,34 @@ class AccountLoginController extends BaseController
 
     public function submit()
     {
-        $this->notification->set('success', 'Not implemented');
-        $this->response->redirect('account/login');
+        if ($this->request->server['REQUEST_METHOD'] != 'POST') {
+            $this->response->redirect('account/login');
+            return;
+        }
+
+        // Validate
+        if (empty($this->request->post['email'])) {
+            $this->notification->set('error', 'Email is required');
+            $this->response->redirect('account/login');
+            return;
+        }
+
+        if (empty($this->request->post['password'])) {
+            $this->notification->set('error', 'Password is required');
+            $this->response->redirect('account/login');
+            return;
+        }
+
+        $this->loadModel('account/user');
+
+        if (!$this->user->login($this->request->post['email'], $this->request->post['password'])) {
+            $this->notification->set('error', 'Invalid email or password');
+            $this->response->redirect('account/login');
+            return;
+        }
+
+        $this->notification->set('success', 'Logged in!');
+
+        $this->response->redirect('common/home');
     }
 }
