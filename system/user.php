@@ -6,6 +6,7 @@ class User
 
     private $user_id;
     public $email;
+    public $role;
     private $db = null;
 
     public function loggedIn()
@@ -22,8 +23,19 @@ class User
 
             $this->user_id = $user['user_id'];
             $this->email = $user['email'];
+            $this->role = $user['role'];
 
         }
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function isAnalyst()
+    {
+        return $this->role == 'analyst';
     }
 
     public function register($email, $password)
@@ -80,4 +92,5 @@ class User
         $result = $this->db->query($sql, 'i', [$id]);
         return $result->row;
     }
+
 }

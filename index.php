@@ -40,6 +40,9 @@ $user = new User($registry);
 
 $registry->add('user', $user);
 
+$admin = $user->isAdmin();
+$analyst = $user->isAnalyst();
+
 $audit = new Audit($registry);
 
 $registry->add('audit', $audit);

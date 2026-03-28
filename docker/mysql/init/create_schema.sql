@@ -9,6 +9,9 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 );
 
+INSERT INTO users (email, password, role) VALUES ('admin@authx.ro', 'password', 'admin');
+INSERT INTO users (email, password, role) VALUES ('analyst@authx.ro', 'password', 'analyst');
+
 CREATE TABLE `tickets` (
   `ticket_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,

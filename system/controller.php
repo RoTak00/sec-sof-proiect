@@ -30,6 +30,7 @@ class BaseController
     {
         if (file_exists(CONTENT_DIR . 'views/' . $path)) {
             extract($data);
+            global $admin, $analyst;
 
             ob_start();
             include CONTENT_DIR . 'views/' . $path;

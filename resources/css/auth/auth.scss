@@ -101,3 +101,12 @@ $auth-input-radius: 8px;
     @extend .auth-card__button;
   }
 }
+
+.auth-form__textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+select.auth-form__input {
+  appearance: none;
+}

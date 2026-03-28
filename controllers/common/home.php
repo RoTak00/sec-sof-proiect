@@ -15,6 +15,10 @@ class CommonHomeController extends BaseController
 
         $data['email'] = $this->user->email;
 
+        $data['ticket_action'] = $this->url->link('tickets/ticket/submit');
+        $data['tickets'] = $this->url->link('tickets/ticket');
+
+
         $data['notification'] = $this->loadController('common/notification');
         $data['footer'] = $this->loadController('common/footer');
         $head_settings = ['page_title' => 'Home'];
