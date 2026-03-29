@@ -129,7 +129,15 @@ class AccountUserController extends BaseController
 
         if ($password !== '') {
             $update_data['password'] = $password;
+
+            if (strlen($password) < 10) {
+                $this->notification->set('error', 'New password must be at least 10 characters long');
+                $this->response->redirect('account/user/edit/' . $user_id);
+                return;
+            }
         }
+
+
 
         $this->model_account_user->edit($user_id, $update_data);
 

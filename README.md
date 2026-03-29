@@ -25,6 +25,8 @@ The application is built in a custom PHP MVC, developed by [the author](https://
 
 1. Password storage - updated password storage to use bcrypt hashing in the database.
 
+2. Password strength - require a password of minimum 10 characters, without any extra requests
+
 # Update log
 
 _27.03.2026_ - Created database tables. Created user system object and authentication pages (Login, Register, Forgotten Password)

@@ -36,4 +36,41 @@
     </main>
 </div>
 
+<script>
+    document.querySelector('form[action="<?= $action ?>"]').addEventListener('submit', function (e) {
+        const oldPassword = document.querySelector('#old_password').value;
+        const newPassword = document.querySelector('#new_password').value;
+
+        function showError(msg) {
+            let notif = document.querySelector('.auth-card__notification');
+            if (!notif) {
+                notif = document.createElement('div');
+                notif.className = 'auth-card__notification';
+                document.querySelector('.app-content__card').prepend(notif);
+            }
+            notif.innerText = msg;
+        }
+
+        if (oldPassword !== '' || newPassword !== '') {
+            if (oldPassword === '') {
+                e.preventDefault();
+                showError('Old password is required');
+                return;
+            }
+
+            if (newPassword === '') {
+                e.preventDefault();
+                showError('New password is required');
+                return;
+            }
+
+            if (newPassword.length < 10) {
+                e.preventDefault();
+                showError('New password must be at least 10 characters long');
+                return;
+            }
+        }
+    });
+</script>
+
 <?= $footer ?>

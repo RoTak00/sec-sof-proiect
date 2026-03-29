@@ -85,6 +85,12 @@ class AccountAccountController extends BaseController
                 return;
             }
 
+            if (strlen($new_password) < 10) {
+                $this->notification->set('error', 'New password must be at least 10 characters long');
+                $this->response->redirect('account/account');
+                return;
+            }
+
             if (!password_verify($old_password, $user['password'])) {
                 $this->notification->set('error', 'Old password is incorrect');
                 $this->response->redirect('account/account');

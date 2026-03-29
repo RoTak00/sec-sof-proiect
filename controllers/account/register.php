@@ -36,6 +36,12 @@ class AccountRegisterController extends BaseController
             return;
         }
 
+        if (strlen($this->request->post['password']) < 10) {
+            $this->notification->set('error', 'Password must be at least 10 characters long');
+            $this->response->redirect('account/register');
+            return;
+        }
+
         $this->loadModel('account/user');
 
         $existing_user = $this->model_account_user->getUserByEmail($this->request->post['email']);
