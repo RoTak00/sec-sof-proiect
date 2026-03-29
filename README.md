@@ -23,9 +23,11 @@ The application is built in a custom PHP MVC, developed by [the author](https://
 
 # Fixes on the "fixed" branch
 
-1. Password storage - updated password storage to use bcrypt hashing in the database.
+1. Password storage - updated password storage to use bcrypt hashing in the database. Before this, unauthorized access to the database would compromit every account, as an attacker could directly connect to any account. Bcrypt, a slow hashing algorithm with salting incorporated in itself, prevents bruteforcing or rainbow table attacks.
 
-2. Password strength - require a password of minimum 10 characters, without any extra requests
+2. Password strength - require a password of minimum 10 characters, without any extra requests. This prevents brute forcing attacks. No extra types of characters are required as this is proven to not improve password security.
+
+3. Password reset mechanism - implemented a reset_token database - for each password reset request, a token is generated and its hash is saved in the database. The token is sent through the reset e-mail, and only using this token, which has a lifetime of 1 hour, the password can be reset. This prevents guessing the password reset link.
 
 # Update log
 

@@ -37,4 +37,16 @@ CREATE TABLE audit_logs (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
 );
 
+CREATE TABLE user_reset_tokens (
+    reset_token_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user_reset_tokens_user
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
 
