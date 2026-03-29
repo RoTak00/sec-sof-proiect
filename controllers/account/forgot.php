@@ -111,6 +111,18 @@ class AccountForgotController extends BaseController
             return;
         }
 
+        if (empty($this->request->post['password'])) {
+            $this->notification->set('error', 'Password is required');
+            $this->response->redirect('account/forgot/reset/' . $user_id);
+            return;
+        }
+
+        if (strlen($this->request->post['password']) < 10) {
+            $this->notification->set('error', 'Password must be at least 10 characters');
+            $this->response->redirect('account/forgot/reset/' . $user_id);
+            return;
+        }
+
         $this->audit->add('USER_RESET_PASSWORD', $user['email'], $user['user_id']);
         $this->model_account_user->updatePassword($user['user_id'], $this->request->post['password']);
         $this->response->redirect('account/login');

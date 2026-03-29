@@ -24,4 +24,25 @@
     </div>
 </div>
 
+<script>
+    document.querySelector('.auth-form').addEventListener('submit', function (e) {
+        const password = document.querySelector('input[name="password"]').value;
+
+        function showError(msg) {
+            let notif = document.querySelector('.auth-card__notification');
+            if (!notif) {
+                notif = document.createElement('div');
+                notif.className = 'auth-card__notification';
+                document.querySelector('.auth-card').prepend(notif);
+            }
+            notif.innerText = msg;
+        }
+
+        if (password.length < 10) {
+            e.preventDefault();
+            showError('Password must be at least 10 characters long');
+        }
+    });
+</script>
+
 <?= $footer ?>
