@@ -9,8 +9,8 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 );
 
-INSERT INTO users (email, password, role) VALUES ('admin@authx.ro', 'password', 'admin');
-INSERT INTO users (email, password, role) VALUES ('analyst@authx.ro', 'password', 'analyst');
+INSERT INTO users (email, password, role) VALUES ('admin@authx.ro', '$2y$10$27v.jwudZkpnNw9oqcHLcOoJ47nlplt2yiUtdxiM4lk0Hn3P8PIDO', 'admin');
+INSERT INTO users (email, password, role) VALUES ('analyst@authx.ro', '$2y$10$27v.jwudZkpnNw9oqcHLcOoJ47nlplt2yiUtdxiM4lk0Hn3P8PIDO', 'analyst');
 
 CREATE TABLE `tickets` (
   `ticket_id` int(11) NOT NULL AUTO_INCREMENT,

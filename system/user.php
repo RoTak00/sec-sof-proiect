@@ -40,27 +40,36 @@ class User
 
     public function register($email, $password)
     {
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+
         $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
-        $result = $this->db->query($sql, 'ss', [$email, $password]);
+        $result = $this->db->query($sql, 'ss', [$email, $password_hash]);
 
         $this->session->data['user_id'] = $result->insert_id;
         $this->user_id = $this->session->data['user_id'];
         $this->email = $email;
+        $this->role = 'user';
 
         return true;
     }
 
     public function login($email, $password)
     {
-        $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-        $result = $this->db->query($sql, 'ss', [$email, $password]);
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $result = $this->db->query($sql, 's', [$email]);
+
         if ($result->num_rows > 0) {
             $user = $result->row;
-            $this->session->data['user_id'] = $user['user_id'];
-            $this->user_id = $user['user_id'];
-            $this->email = $user['email'];
-            return true;
+
+            if (password_verify($password, $user['password'])) {
+                $this->session->data['user_id'] = $user['user_id'];
+                $this->user_id = $user['user_id'];
+                $this->email = $user['email'];
+                $this->role = $user['role'];
+                return true;
+            }
         }
+
         return false;
     }
 

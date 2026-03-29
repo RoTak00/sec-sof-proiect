@@ -85,7 +85,7 @@ class AccountAccountController extends BaseController
                 return;
             }
 
-            if ($old_password != $user['password']) {
+            if (!password_verify($old_password, $user['password'])) {
                 $this->notification->set('error', 'Old password is incorrect');
                 $this->response->redirect('account/account');
                 return;

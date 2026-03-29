@@ -18,7 +18,7 @@ class AccountUserModel extends BaseModel
 
     public function updatePassword($id, $password)
     {
-        $this->db->query("UPDATE users SET password = ? WHERE user_id = ?", 'si', [$password, $id]);
+        $this->db->query("UPDATE users SET password = ? WHERE user_id = ?", 'si', [password_hash($password, PASSWORD_BCRYPT), $id]);
     }
 
     public function edit($user_id, $data)
@@ -30,7 +30,7 @@ class AccountUserModel extends BaseModel
         }
 
         if (isset($data['password'])) {
-            $fields[] = "password = '" . $this->db->escape($data['password']) . "'";
+            $fields[] = "password = '" . $this->db->escape(password_hash($data['password'], PASSWORD_BCRYPT)) . "'";
         }
 
         if (isset($data['role'])) {
