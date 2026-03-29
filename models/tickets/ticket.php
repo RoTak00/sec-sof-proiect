@@ -15,6 +15,15 @@ class TicketsTicketModel extends BaseModel
         return $result->insert_id;
     }
 
+    public function updateStatus($ticket_id, $status)
+    {
+        $result = $this->db->query(
+            "UPDATE tickets SET status = ?, updated_at = NOW() WHERE ticket_id = ?",
+            'si',
+            [$status, $ticket_id]
+        );
+    }
+
     public function getTicketById($ticket_id)
     {
         $result = $this->db->query(

@@ -24,6 +24,7 @@ class TicketsTicketController extends BaseController
 
         $data['tickets_link'] = $this->url->link('tickets/ticket');
 
+        $data['logout'] = $this->url->link('account/logout');
         $data['notification'] = $this->loadController('common/notification');
         $data['footer'] = $this->loadController('common/footer');
         $head_settings = ['page_title' => 'Tickets'];
@@ -63,6 +64,12 @@ class TicketsTicketController extends BaseController
 
         $data['tickets'] = $this->url->link('tickets/ticket');
 
+        if ($this->user->isAdmin() || $this->user->isAnalyst()) {
+            $data['ticket_edit_action'] = $this->url->link('tickets/ticket/update/' . $ticket_id);
+        }
+
+
+        $data['logout'] = $this->url->link('account/logout');
         $data['notification'] = $this->loadController('common/notification');
         $data['footer'] = $this->loadController('common/footer');
         $head_settings = ['page_title' => 'Tickets'];
@@ -123,5 +130,69 @@ class TicketsTicketController extends BaseController
         $this->notification->set('success', 'Ticket created successfully');
 
         $this->response->redirect('tickets/ticket/view/' . (int) $ticket_id);
+    }
+
+    public function update($setting)
+    {
+        if (!$this->user->loggedIn()) {
+            $this->response->redirect('account/login');
+            return;
+        }
+
+        if ($this->request->server['REQUEST_METHOD'] != 'POST') {
+            $this->response->redirect('tickets/ticket');
+            return;
+        }
+
+        if (!count($setting)) {
+            $this->notification->set('error', 'Ticket not found');
+            $this->response->redirect('tickets/ticket');
+            return;
+        }
+
+        $ticket_id = (int) $setting[0];
+
+        $allowed_statuses = ['open', 'in_progress', 'resolved'];
+
+        if (empty($this->request->post['status']) || !in_array($this->request->post['status'], $allowed_statuses, true)) {
+            $this->notification->set('error', 'Invalid status');
+            $this->response->redirect('tickets/ticket/view/' . $ticket_id);
+            return;
+        }
+
+        $status = $this->request->post['status'];
+        $message = isset($this->request->post['message']) ? trim($this->request->post['message']) : '';
+
+        $this->loadModel('tickets/ticket');
+        $ticket = $this->model_tickets_ticket->getTicketById($ticket_id);
+
+        if (!$ticket) {
+            $this->notification->set('error', 'Ticket not found');
+            $this->response->redirect('tickets/ticket');
+            return;
+        }
+
+        $this->model_tickets_ticket->updateStatus($ticket_id, $status);
+
+        $this->loadModel('account/user');
+        $ticket_owner = $this->model_account_user->getUserById($ticket['owner_id']);
+
+        if ($message !== '' && !empty($ticket_owner['email'])) {
+            $subject = 'Update for your ticket: ' . $ticket['title'];
+
+            $body = "Hello,\n\n";
+            $body .= "Your ticket status has been updated to: " . $status . "\n\n";
+            $body .= $message . "\n\n";
+            $body .= "Ticket ID: " . $ticket_id . "\n";
+            $body .= "Title: " . $ticket['title'] . "\n";
+
+            $this->mail->send($ticket_owner['email'], $subject, $body);
+        }
+
+        $this->audit->add('TICKET_UPDATE', 'ticket', $ticket_id);
+
+        $this->notification->set('success', 'Ticket updated successfully');
+
+        $this->response->redirect('tickets/ticket/view/' . $ticket_id);
     }
 }

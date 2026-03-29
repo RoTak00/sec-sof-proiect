@@ -39,6 +39,32 @@
             <?php } ?>
         </div>
 
+        <?php if ($admin || $analyst) { ?>
+            <hr style="margin: 20px 0;">
+
+            <form method="post" action="<?= $ticket_edit_action ?? "" ?>">
+                <div style="margin-bottom: 15px;">
+                    <label for="status"><strong>Change status</strong></label><br>
+                    <select class="auth-form__input" name="status" id="status"
+                        style="margin-top: 6px; padding: 8px; min-width: 220px;">
+                        <option value="open" <?= $ticket['status'] === 'open' ? 'selected' : '' ?>>Open</option>
+                        <option value="in_progress" <?= $ticket['status'] === 'in_progress' ? 'selected' : '' ?>>In Progress
+                        </option>
+                        <option value="resolved" <?= $ticket['status'] === 'resolved' ? 'selected' : '' ?>>Resolved</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="message"><strong>Send message to ticket owner</strong></label><br>
+                    <textarea class="auth-form__textarea auth-form__input" name="message" id="message" rows="6"
+                        style="margin-top: 6px; padding: 10px; width: 100%; max-width: 700px; box-sizing: border-box;"
+                        placeholder="Write an email message to the ticket owner..."></textarea>
+                </div>
+
+                <button type="submit" class="auth-card__button">Update ticket</button>
+            </form>
+        <?php } ?>
+
         <div style="margin-top:15px;">
             <?php if ($admin || $analyst): ?>
                 <a href="<?= $tickets ?>" class="auth-card__button">Back to tickets</a>
