@@ -15,6 +15,7 @@
                             <th style="padding: 10px;">ID</th>
                             <th style="padding: 10px;">Email</th>
                             <th style="padding: 10px;">Role</th>
+                            <th style="padding: 10px;">Verified</th>
                             <th style="padding: 10px;">Action</th>
                         </tr>
                     </thead>
@@ -27,6 +28,9 @@
                                 </td>
                                 <td style="padding: 10px;">
                                     <?= !empty($user['role']) ? htmlspecialchars($user['role']) : '-' ?>
+                                </td>
+                                <td style="padding: 10px;">
+                                    <?= $user['is_verified'] ? 'Yes' : 'No' ?>
                                 </td>
                                 <td style="padding: 10px;">
                                     <a href="<?= $user['edit'] ?>">Edit</a>

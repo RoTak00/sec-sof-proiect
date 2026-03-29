@@ -119,6 +119,7 @@ class AccountUserController extends BaseController
         $email = isset($this->request->post['email']) ? trim($this->request->post['email']) : '';
         $password = isset($this->request->post['password']) ? $this->request->post['password'] : '';
         $role = isset($this->request->post['role']) ? trim($this->request->post['role']) : '';
+        $verified = isset($this->request->post['verified']) ? trim($this->request->post['verified']) : '';
 
         if ($email === '') {
             $this->notification->set('error', 'Email is required');
@@ -142,7 +143,8 @@ class AccountUserController extends BaseController
 
         $update_data = [
             'email' => $email,
-            'role' => $role
+            'role' => $role,
+            'is_verified' => $verified
         ];
 
         if ($password !== '') {

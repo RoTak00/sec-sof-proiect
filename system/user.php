@@ -42,15 +42,13 @@ class User
     {
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
-        $result = $this->db->query($sql, 'ss', [$email, $password_hash]);
+        $result = $this->db->query(
+            "INSERT INTO users (email, password) VALUES (?, ?)",
+            'ss',
+            [$email, $password_hash]
+        );
 
-        $this->session->data['user_id'] = $result->insert_id;
-        $this->user_id = $this->session->data['user_id'];
-        $this->email = $email;
-        $this->role = 'user';
-
-        return true;
+        return $result->insert_id;
     }
 
     public function login($email, $password)
@@ -62,6 +60,10 @@ class User
             $user = $result->row;
 
             if (password_verify($password, $user['password'])) {
+
+                if (!$user['is_verified']) {
+                    return false;
+                }
                 $this->session->data['user_id'] = $user['user_id'];
                 $this->user_id = $user['user_id'];
                 $this->email = $user['email'];

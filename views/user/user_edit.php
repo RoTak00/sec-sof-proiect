@@ -28,6 +28,15 @@
                 </div>
 
                 <div style="margin-bottom: 15px;">
+                    <label for="verified"><strong>Verified</strong></label><br>
+                    <select name="verified" id="verified"
+                        style="margin-top: 6px; padding: 10px; width: 100%; max-width: 500px; box-sizing: border-box;">
+                        <option value="0" <?= $edited_user['is_verified'] == '0' ? 'selected' : '' ?>>No</option>
+                        <option value="1" <?= $edited_user['is_verified'] == '1' ? 'selected' : '' ?>>Yes</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px;">
                     <label for="password"><strong>New password</strong></label><br>
                     <input type="text" name="password" id="password" value=""
                         style="margin-top: 6px; padding: 10px; width: 100%; max-width: 500px; box-sizing: border-box;">

@@ -6,11 +6,14 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` enum('user', 'analyst', 'admin') NOT NULL DEFAULT 'user',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_verified` TINYINT(1) NOT NULL DEFAULT 0,
+  `verification_token_hash` CHAR(64) NULL,
+  `verification_token_expires_at` DATETIME NULL,
   PRIMARY KEY (`user_id`)
 );
 
-INSERT INTO users (email, password, role) VALUES ('admin@authx.ro', '$2y$10$27v.jwudZkpnNw9oqcHLcOoJ47nlplt2yiUtdxiM4lk0Hn3P8PIDO', 'admin');
-INSERT INTO users (email, password, role) VALUES ('analyst@authx.ro', '$2y$10$27v.jwudZkpnNw9oqcHLcOoJ47nlplt2yiUtdxiM4lk0Hn3P8PIDO', 'analyst');
+INSERT INTO users (email, password, role, is_verified) VALUES ('admin@authx.ro', '$2y$10$27v.jwudZkpnNw9oqcHLcOoJ47nlplt2yiUtdxiM4lk0Hn3P8PIDO', 'admin', 1);
+INSERT INTO users (email, password, role, is_verified) VALUES ('analyst@authx.ro', '$2y$10$27v.jwudZkpnNw9oqcHLcOoJ47nlplt2yiUtdxiM4lk0Hn3P8PIDO', 'analyst', 1);
 
 CREATE TABLE `tickets` (
   `ticket_id` int(11) NOT NULL AUTO_INCREMENT,
