@@ -1,21 +1,7 @@
 <?= $head ?>
 
 <div class="app-layout">
-    <aside class="app-sidebar">
-        <div class="app-sidebar__brand">AuthX</div>
-
-        <nav class="app-sidebar__nav">
-            <a href="/" class="app-sidebar__link app-sidebar__link--active">Home</a>
-            <a href="/account" class="app-sidebar__link">Account</a>
-            <a href="<?= $tickets ?>" class="app-sidebar__link">Tickets</a>
-            <?php
-            if ($admin) { ?>
-                <a href="/users" class="app-sidebar__link">Users</a>
-            <?php } ?>
-            <a href="<?= $logout ?>" class="app-sidebar__link">Log out</a>
-
-        </nav>
-    </aside>
+    <?= $navbar ?>
 
     <main class="app-content">
         <div class="app-content__card">

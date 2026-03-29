@@ -22,9 +22,7 @@ class TicketsTicketController extends BaseController
         $data = [];
         $data['tickets'] = $tickets;
 
-        $data['tickets_link'] = $this->url->link('tickets/ticket');
-
-        $data['logout'] = $this->url->link('account/logout');
+        $data['navbar'] = $this->loadController('common/navbar', ['active' => 'tickets']);
         $data['notification'] = $this->loadController('common/notification');
         $data['footer'] = $this->loadController('common/footer');
         $head_settings = ['page_title' => 'Tickets'];
@@ -62,14 +60,11 @@ class TicketsTicketController extends BaseController
         $data = [];
         $data['ticket'] = $ticket;
 
-        $data['tickets'] = $this->url->link('tickets/ticket');
-
         if ($this->user->isAdmin() || $this->user->isAnalyst()) {
             $data['ticket_edit_action'] = $this->url->link('tickets/ticket/update/' . $ticket_id);
         }
 
-
-        $data['logout'] = $this->url->link('account/logout');
+        $data['navbar'] = $this->loadController('common/navbar', ['active' => 'tickets']);
         $data['notification'] = $this->loadController('common/notification');
         $data['footer'] = $this->loadController('common/footer');
         $head_settings = ['page_title' => 'Tickets'];
