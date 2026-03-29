@@ -55,6 +55,12 @@ class TicketsTicketController extends BaseController
             return;
         }
 
+        if ($ticket['owner_id'] != $this->user->loggedIn() && !($this->user->isAdmin() || $this->user->isAnalyst())) {
+            $this->notification->set('error', 'Unauthorized');
+            $this->response->redirect('common/home');
+            return;
+        }
+
         $this->audit->add('TICKET_VIEW', 'ticket', $ticket_id);
 
         $data = [];
@@ -131,6 +137,12 @@ class TicketsTicketController extends BaseController
     {
         if (!$this->user->loggedIn()) {
             $this->response->redirect('account/login');
+            return;
+        }
+
+        if (!$this->user->isAdmin() || !$this->user->isAnalyst()) {
+            $this->notification->set('error', 'Unauthorized');
+            $this->response->redirect('common/home');
             return;
         }
 

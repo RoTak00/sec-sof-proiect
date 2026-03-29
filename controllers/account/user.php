@@ -9,6 +9,12 @@ class AccountUserController extends BaseController
             return;
         }
 
+        if (!$this->user->isAdmin()) {
+            $this->notification->set('error', 'Unauthorized');
+            $this->response->redirect('common/home');
+            return;
+        }
+
         $this->loadModel('account/user');
 
         $users = $this->model_account_user->getUsers();
@@ -35,6 +41,12 @@ class AccountUserController extends BaseController
     {
         if (!$this->user->loggedIn()) {
             $this->response->redirect('account/login');
+            return;
+        }
+
+        if (!$this->user->isAdmin()) {
+            $this->notification->set('error', 'Unauthorized');
+            $this->response->redirect('common/home');
             return;
         }
 
@@ -72,6 +84,12 @@ class AccountUserController extends BaseController
     {
         if (!$this->user->loggedIn()) {
             $this->response->redirect('account/login');
+            return;
+        }
+
+        if (!$this->user->isAdmin()) {
+            $this->notification->set('error', 'Unauthorized');
+            $this->response->redirect('common/home');
             return;
         }
 

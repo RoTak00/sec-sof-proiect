@@ -28,6 +28,7 @@ The application is built in a custom PHP MVC, developed by [the author](https://
 2. Password strength - require a password of minimum 10 characters, without any extra requests. This prevents brute forcing attacks. No extra types of characters are required as this is proven to not improve password security.
 
 3. Password reset mechanism - implemented a reset_token database - for each password reset request, a token is generated and its hash is saved in the database. The token is sent through the reset e-mail, and only using this token, which has a lifetime of 1 hour, the password can be reset. This prevents guessing the password reset link.
+4. Unauthorized operations - previously, although links to special authority operations were hidden, they could still be accessed. This includes user edit, user list, ticket edit, ticket view. Also, users could see any ticket, even if they were not theirs.
 
 # Update log
 
