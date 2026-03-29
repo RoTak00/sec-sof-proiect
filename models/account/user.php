@@ -33,11 +33,22 @@ class AccountUserModel extends BaseModel
             $fields[] = "password = '" . $this->db->escape($data['password']) . "'";
         }
 
+        if (isset($data['role'])) {
+            $fields[] = "role = '" . $this->db->escape($data['role']) . "'";
+        }
+
         if (!$fields) {
             return;
         }
 
         $sql = "UPDATE users SET " . implode(', ', $fields) . " WHERE user_id = '" . (int) $user_id . "'";
+
         $this->db->query($sql);
+    }
+
+    public function getUsers()
+    {
+        $query = $this->db->query("SELECT * FROM users ORDER BY user_id ASC");
+        return $query->rows;
     }
 }

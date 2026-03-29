@@ -13,7 +13,7 @@ class CommonNavbarController extends BaseController
         $data['home_link'] = '/';
         $data['account_link'] = $this->url->link('account/account');
         $data['tickets_link'] = $this->url->link('tickets/ticket');
-        $data['users_link'] = '/users';
+        $data['users_link'] = $this->url->link('account/user');
         $data['logout'] = $this->url->link('account/logout');
 
         return $this->loadView('common/navbar.php', $data);
