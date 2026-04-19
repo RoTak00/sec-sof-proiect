@@ -1,5 +1,7 @@
 # Authentication Security
 
+_STUDENT ROBERT TAKACS CTI GR. 463_
+
 This repository represents a demonstration of authentication security in a PHP website. The project is part of the Developing Secure Software Applications course of the Faculty of Mathematics and Informatics, University of Bucharest, by prof. Marius-Iulian Mihăilescu.
 
 ## Youtube videos
