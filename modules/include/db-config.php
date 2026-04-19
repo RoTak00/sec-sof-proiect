@@ -13,9 +13,6 @@ $current_time = time();
 $current_date = date("Y-m-d H:i:s", $current_time);
 
 $ip = $_SERVER['REMOTE_ADDR'];
-$geo_data = file_get_contents("http://www.geoplugin.net/json.gp?ip={$ip}");
-$geo_data = json_decode($geo_data, true);
-$user_timezone = $geo_data['geoplugin_timezone'] ?? "UTC";
 
 
 // Create database connection
