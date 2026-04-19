@@ -2,6 +2,15 @@
 
 This repository represents a demonstration of authentication security in a PHP website. The project is part of the Developing Secure Software Applications course of the Faculty of Mathematics and Informatics, University of Bucharest, by prof. Marius-Iulian Mihăilescu.
 
+## Youtube videos
+
+- Stocarea parolelor: https://youtu.be/tZgFPM4lWw8
+- Cerințe de securitate ale parolelor: https://youtu.be/XETg0PsdIAg
+- Resetarea Parolelor: https://youtu.be/m7GA_3b9ApU
+- Operații Neautorizate: https://youtu.be/-eoDtqIaixY
+- Brute-forcing: https://youtu.be/LYUeHFB9nGM
+- Enumerare de conturi: https://youtu.be/sYhjICratxY
+
 ## Installation
 
 ```bash
